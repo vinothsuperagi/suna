@@ -67,7 +67,8 @@ async def run_agent(
     thread_manager.add_tool(SandboxDeployTool, project_id=project_id, thread_manager=thread_manager)
     thread_manager.add_tool(SandboxExposeTool, project_id=project_id, thread_manager=thread_manager)
     thread_manager.add_tool(MessageTool) # we are just doing this via prompt as there is no need to call it as a tool
-    thread_manager.add_tool(WebSearchTool)
+    if config.TAVILY_API_KEY:
+        thread_manager.add_tool(WebSearchTool)
     thread_manager.add_tool(SandboxVisionTool, project_id=project_id, thread_id=thread_id, thread_manager=thread_manager)
         
     # Add data providers tool if RapidAPI key is available
